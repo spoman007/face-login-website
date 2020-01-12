@@ -1,0 +1,164 @@
+<style>
+    .button-group,
+    .play-area {
+        border: 1px solid grey;
+        padding: 1em 1%;
+        margin-bottom: 1em;
+    }
+
+    .button {
+        padding: 0.5em;
+        margin-right: 1em;
+    }
+
+    .play-area-sub {
+        width: 47%;
+        padding: 1em 1%;
+        display: inline-block;
+        text-align: center;
+    }
+
+    #capture {
+        display: none;
+    }
+</style>
+
+<!-- The buttons to control the stream -->
+<div class="button-group">
+    <button id="btn-start" type="button" class="button">Login</button>
+    <h2 id="snapshot"></h2>
+</div>
+
+<!-- Video Element & Canvas -->
+<div class="play-area">
+    <div class="play-area-sub">
+        <video id="stream" width="320" height="240"></video>
+    </div>
+    <div class="play-area-sub">
+        <canvas id="capture" width="320" height="240"></canvas>
+
+    </div>
+</div>
+
+<script> 
+
+    // The buttons to start & stop stream and to capture the image
+    var btnStart = document.getElementById("btn-start");
+
+    // The stream & capture
+    var stream = document.getElementById("stream");
+    var capture = document.getElementById("capture");
+    var snapshot = document.getElementById("snapshot");
+
+    // The video stream
+    var cameraStream = null;
+
+    // Attach listeners
+    btnStart.addEventListener("click", startStreaming);
+
+
+    function promisify(xhr, failNon2xx = true) {
+        const oldSend = xhr.send;
+        xhr.send = function () {
+            const xhrArguments = arguments;
+            return new Promise(function (resolve, reject) {
+                xhr.onload = function () {
+                    if (failNon2xx && (xhr.status < 200 || xhr.status >= 300)) {
+                        reject({ request: xhr });
+                    } else {
+                        resolve(xhr);
+                    }
+                };
+                xhr.onerror = function () {
+                    reject({ request: xhr });
+                };
+                oldSend.apply(xhr, xhrArguments);
+            });
+        }
+    }
+
+    // Start Streaming
+    function startStreaming() {
+
+        var mediaSupport = 'mediaDevices' in navigator;
+
+        if (mediaSupport && null == cameraStream) {
+
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function (mediaStream) {
+
+                    cameraStream = mediaStream;
+
+                    stream.srcObject = mediaStream;
+
+                    stream.play();
+                    setTimeout(() => {
+
+                        captureSnapshot();
+                    }, 1000);
+                })
+                .catch(function (err) {
+
+                    console.log("Unable to access camera: " + err);
+                });
+        }
+        else {
+
+            alert('Your browser does not support media devices.');
+
+            return;
+        }
+    }
+
+    // Stop Streaming
+    function stopStreaming() {
+
+        if (null != cameraStream) {
+
+            var track = cameraStream.getTracks()[0];
+
+            track.stop();
+            stream.load();
+
+            cameraStream = null;
+        }
+    }
+
+    function captureSnapshot() {
+
+        if (null != cameraStream) {
+
+            var ctx = capture.getContext('2d');
+            var img = new Image();
+
+            ctx.drawImage(stream, 0, 0, capture.width, capture.height);
+
+            img.src = capture.toDataURL("image/jpeg");
+            img.width = 240;
+
+            fetch(img.src)
+                .then(res => res.blob())
+                .then(blob => {
+                    const file = new File([blob], 'dot.jpg', blob)
+                    var data = new FormData();
+                    data.append("image", file);
+
+                    var xhr = new XMLHttpRequest();
+                    promisify(xhr);
+
+                    xhr.open("POST", "http://localhost:3000/");
+                    xhr.send(data).then(res => {
+                        stopStreaming();
+                        const result = JSON.parse(res.response)
+                        snapshot.innerHTML = `Welcome ${result[0]['_label']}`
+                    });
+                })
+
+
+
+
+
+        }
+    }
+
+</script>
