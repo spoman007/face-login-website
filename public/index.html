@@ -40,10 +40,16 @@
     </div>
 </div>
 
-<script> 
+<div class="play-area">
+    <input type="text" id="name" placeholder="Name">
+    <button id="btn-register" type="button" class="button">Register</button>
+</div>
+
+<script>
 
     // The buttons to start & stop stream and to capture the image
     var btnStart = document.getElementById("btn-start");
+    var btnRegister = document.getElementById("btn-register");
 
     // The stream & capture
     var stream = document.getElementById("stream");
@@ -55,6 +61,7 @@
 
     // Attach listeners
     btnStart.addEventListener("click", startStreaming);
+    btnRegister.addEventListener("click", startStreamingRegister);
 
 
     function promisify(xhr, failNon2xx = true) {
@@ -76,6 +83,92 @@
             });
         }
     }
+
+
+    function startStreamingRegister() {
+
+        var mediaSupport = 'mediaDevices' in navigator;
+
+        if (mediaSupport && null == cameraStream) {
+
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function (mediaStream) {
+
+                    cameraStream = mediaStream;
+
+                    stream.srcObject = mediaStream;
+
+                    stream.play();
+                    setTimeout(() => {
+
+                        captureSnapshotsRegister();
+                    }, 1000);
+                })
+                .catch(function (err) {
+
+                    console.log("Unable to access camera: " + err);
+                });
+        }
+        else {
+
+            alert('Your browser does not support media devices.');
+
+            return;
+        }
+    }
+
+
+    async function captureSnapshotsRegister() {
+
+        if (null != cameraStream) {
+
+            const directions = ["At the camera", "Little Left"];
+            var data = new FormData();
+            const label = document.getElementById("name").value.trim()
+            if (label.length === 0) {
+                stopStreaming();
+                return alert("Please enter name");
+            }
+            data.append("label", label);
+
+            for (i = 0; i < 2; i++) {
+                alert(`Please look ${directions[i]}`)
+                var ctx = capture.getContext('2d');
+                var img = new Image();
+
+                ctx.drawImage(stream, 0, 0, capture.width, capture.height);
+
+                img.src = capture.toDataURL("image/jpeg");
+                img.width = 240;
+
+                const res = await fetch(img.src)
+                const blob = await res.blob()
+
+                const file = new File([blob], `${i + 1}.jpg`, blob)
+
+                data.append("image", file);
+            }
+
+            var xhr = new XMLHttpRequest();
+            promisify(xhr);
+
+            xhr.open("POST", "http://localhost:3000/register");
+            console.log('done')
+            xhr.send(data).then(res => {
+                stopStreaming();
+                const result = JSON.parse(res.response)
+                console.log(result)
+            });
+
+
+
+
+
+
+        }
+    }
+
+
 
     // Start Streaming
     function startStreaming() {
