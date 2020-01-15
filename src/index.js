@@ -106,7 +106,7 @@ const loadLabeledImages = () => {
 
       const descriptions = []
       for (let i = 1; i <= 2; i++) {
-        const img = await canvas.loadImage(`${LABELED_IMAGES_URL}\\${label}\\${i}.jpg`)
+        const img = await canvas.loadImage(`${LABELED_IMAGES_URL}/${label}/${i}.jpg`)
         const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
         descriptions.push(detections.descriptor)
       }
