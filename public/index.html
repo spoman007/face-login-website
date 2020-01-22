@@ -1,36 +1,17 @@
-<style>
-    .button-group,
-    .play-area {
-        border: 1px solid grey;
-        padding: 1em 1%;
-        margin-bottom: 1em;
-    }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Titillium+Web'>
+<link rel="stylesheet" href="./styles.css">
 
-    .button {
-        padding: 0.5em;
-        margin-right: 1em;
-    }
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js'></script>
+<script src='https://www.greensock.com/js/src/utils/SplitText.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.6/typed.min.js'></script><script  src="./script.js"></script>
 
-    .play-area-sub {
-        width: 47%;
-        padding: 1em 1%;
-        display: inline-block;
-        text-align: center;
-    }
-
-    #capture {
-        display: none;
-    }
-</style>
-
-<!-- The buttons to control the stream -->
-<div class="button-group">
-    <button id="btn-start" onclick="startStreaming()" type="button" class="button">Login</button>
-    <h2 id="snapshot"></h2>
-</div>
-
-<!-- Video Element & Canvas -->
 <div class="play-area">
+    <button id="btn-start" onclick="startStreaming()" type="button" class="button">Login</button>
+    <input type="text" id="name" placeholder="Name">
+    <button id="btn-register" type="button" class="button" onclick="startStreamingRegister()">Register</button>
+    <h2 id="snapshot"></h2>
     <div class="play-area-sub">
         <video id="stream" width="320" height="240"></video>
     </div>
@@ -39,11 +20,16 @@
 
     </div>
 </div>
+<div class="view filter-red_blur">
 
-<div class="play-area">
-    <input type="text" id="name" placeholder="Name">
-    <button id="btn-register" type="button" class="button" onclick="startStreamingRegister()">Register</button>
 </div>
+<div class="ui">
+    <div class="frame" id="analysis"></div>
+    <div id="tracking"></div>
+    <div class="frame" id="report"> </div>
+
+</div>
+
 
 
 <script src="./login.js"></script>

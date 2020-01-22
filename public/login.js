@@ -98,7 +98,7 @@ async function captureSnapshotsRegister() {
         var xhr = new XMLHttpRequest();
         promisify(xhr);
 
-        xhr.open("POST", "http://localhost:3000/register");
+        xhr.open("POST", "https://face-login-32570.web.app/register");
         xhr.send(data).then(res => {
             stopStreaming();
             document.getElementById("name").value = '';
@@ -149,14 +149,10 @@ function startStreaming() {
 
 // Stop Streaming
 function stopStreaming() {
-
     if (null != cameraStream) {
-
         var track = cameraStream.getTracks()[0];
-
         track.stop();
         stream.load();
-
         cameraStream = null;
     }
 }
@@ -183,11 +179,11 @@ function captureSnapshot() {
                 var xhr = new XMLHttpRequest();
                 promisify(xhr);
 
-                xhr.open("POST", "http://localhost:3000/");
+                xhr.open("POST", "https://face-login-32570.web.app/");
                 xhr.send(data).then(res => {
                     stopStreaming();
                     const result = JSON.parse(res.response)
-                    snapshot.innerHTML = `Welcome ${result[0]['_label']}`
+                    document.getElementById("tracking").innerHTML = `Welcome ${result[0]['_label']}`
                 });
             })
 
