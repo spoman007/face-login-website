@@ -19,6 +19,7 @@ body {
     transition: all 0.5s ease-in-out;
   }
   .view {
+    text-align: center;
     background: url(https://www.bestfunforall.com/wallpaperbetter/imgs/House%20Background%20wallpaper%20%201.jpg) center no-repeat;
     background-size: cover;
     width: 100vw;
@@ -106,7 +107,6 @@ body {
     margin-right: 1em;
 }
 
-#stream,
 #capture {
     display: none;
 }
