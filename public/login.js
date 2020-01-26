@@ -31,18 +31,23 @@ function promisify(xhr, failNon2xx = true) {
 }
 
 
-function animate(message) {
+function animate(response) {
+    $("#tracking, #report, #analysis").empty()
     setTimeout(function () {
         $('.view').removeClass('filter-red_blur');
     }, 500);
 
     var analysis = "^1000<h2>analysis:</h2>^1000<p>6546546465461</p>^200<p>8989000054545</p>^200<p>5699878225255</p>^200<p>0233255714589</p><p>9412323687985<br/><br/></p><p>8885575522255</p><p>5646484513248</p><p>6546626233653</p>";
 
-    var tracking = `^1000${message} <span class='square'>&#9632;</span>`;
+    var tracking = response._label === 'unknown'? `^1500identity unknown<span class='square'>&#9632;</span>`
+                    :`^1500Welcome ${response._label} <span class='square'>&#9632;</span>`;
 
     $(function () {
         var typed = new Typed("#report", {
-            strings: ["^1000<p>......</p>", "^1000<p>scan mode 43894</p>size assement<br/><br/>^1000<p><p>assesment complete<br/><br/></p>^500<p>fit probability 0.99<br/><br/></p>^500<p>reset to aquisition<br/>mode speech level 78<br/><br/></p>^500<p>priority override</p><p>defense systems set</p><p>active status</p><p>level 2347923 max</p>"],
+            strings: [`^1000<p>scan mode 43894</p>size assement<br/><br/>^1000<p><p>assesment complete<br/><br/></p>
+        ^500<p>gender ${response.gender}<br/>gender probability ${response.genderProbability.toFixed(2)}<br/>age ${response.age.toFixed(2)}<br/><br/></p>
+            ^500<p>face expression ${response.expression.expression}</p>
+            <p>probability ${response.expression.probability.toFixed(2)}</p><p>active status</p><p>level 2347923 max</p>`],
             showCursor: false,
             loop: false
         });
@@ -56,7 +61,7 @@ function animate(message) {
                     strings: [tracking],
                     loop: false,
                     showCursor: false,
-                    typeSpeed: 50
+                    typeSpeed: 0
                 });
             }
         });
@@ -132,7 +137,7 @@ async function captureSnapshotsRegister() {
         var xhr = new XMLHttpRequest();
         promisify(xhr);
 
-        xhr.open("POST", "http://localhost:3000/register");
+        xhr.open("POST", "http://localhost:5000/register");
         xhr.send(data).then(res => {
             stopStreaming();
             document.getElementById("name").value = '';
@@ -212,11 +217,13 @@ function captureSnapshot() {
                 var xhr = new XMLHttpRequest();
                 promisify(xhr);
 
-                xhr.open("POST", "http://localhost:3000/");
+                xhr.open("POST", "http://localhost:5000/");
                 xhr.send(data).then(res => {
                     const result = JSON.parse(res.response)
-                    animate(`Welcome ${result[0]['_label']}`);
-                    stopStreaming();
+                    const expression = Object.keys(result.expressions).sort(function (a, b) { return result.expressions[b] - result.expressions[a] })[0]
+                    result.expression = { expression, probability: result.expressions[expression] }
+                    console.log(result.expression)
+                    animate(result);
                 });
             })
 

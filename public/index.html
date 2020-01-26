@@ -7,20 +7,16 @@
 <script src='https://www.greensock.com/js/src/utils/SplitText.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.6/typed.min.js'></script>
 
-<div class="play-area">
-    <button id="btn-start" onclick="startStreaming()" type="button" class="button">Login</button>
-    <input type="text" id="name" placeholder="Name">
-    <button id="btn-register" type="button" class="button" onclick="startStreamingRegister()">Register</button>
-    <h2 id="snapshot"></h2>
-
-    
-    
-    
-</div>
 <div class="view filter-red_blur">
+    <video id="stream"></video>
+        <div class="play-area">
+            <button id="btn-start" onclick="startStreaming()" type="button" class="button">Login</button>
+            <input type="text" id="name" placeholder="Name">
+            <button id="btn-register" type="button" class="button" onclick="startStreamingRegister()">Register</button>
+            <h2 id="snapshot"></h2>
+        </div>
     <canvas id="capture" width="320" height="240"></canvas>
 
-    <video id="stream" width="320" height="240"></video>
 </div>
 <div class="ui">
     <div class="frame" id="analysis"></div>

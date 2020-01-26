@@ -13,14 +13,14 @@ body {
     -webkit-filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(0.8);
             filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(0.8);
   }
-  .filter-red_blur {
+  /* .filter-red_blur {
     -webkit-filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(0.8) blur(4px) !important;
             filter: grayscale(100%) brightness(40%) sepia(100%) hue-rotate(-50deg) saturate(600%) contrast(0.8) blur(4px) !important;
     transition: all 0.5s ease-in-out;
-  }
+  } */
   .view {
     text-align: center;
-    background: url(https://www.bestfunforall.com/wallpaperbetter/imgs/House%20Background%20wallpaper%20%201.jpg) center no-repeat;
+    background: url(https://www.governmentciomedia.com/sites/default/files/styles/featured_article_image/public/2019-03/iStock-1040557296.jpg?itok=g9D9ey30) center no-repeat;
     background-size: cover;
     width: 100vw;
     height: 100vh;
@@ -109,4 +109,17 @@ body {
 
 #capture {
     display: none;
+}
+
+#stream{
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.play-area{
+  position: fixed;
+  width: 100%;
 }
