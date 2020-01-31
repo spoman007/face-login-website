@@ -17,7 +17,7 @@ If the person is registred in the system the server will recognise the face and 
 - Jquery, HTML and CSS for web page
 
 ## Running on local machine 💻💻
-- `npm instll` To install dependencies
+- `npm install` To install dependencies
 - `npm start` To run the server
 
 ## Credit 🤝🤝🤝
