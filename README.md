@@ -3,6 +3,7 @@
 ![](/media/recording.gif)
 
 ## What is this and who is it for 🤷‍♀️
+- Here is <a href="https://youtu.be/C4WHSJD5_vQ?t=1738">a short intro</a> by Tim Ermilov
 - This is a node and express based web server. It uses face api js to detect and recognise the face from the web cam feed.
 If the person is registred in the system the server will recognise the face and a welcome message will be displayed. 😃 
 - This is for developers who want to play around with Machine Learning but does not know python or confused about where to start (Like Me 😜😜 )
