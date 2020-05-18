@@ -24,7 +24,7 @@
     "@babel/plugin-transform-runtime": "^7.7.6",
     "@babel/preset-env": "^7.7.7",
     "@babel/runtime": "^7.7.7",
-    "@tensorflow/tfjs-node": "^1.5.1",
+    "@tensorflow/tfjs-node": "^1.7.0",
     "canvas": "^2.6.1",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
