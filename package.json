@@ -1,12 +1,15 @@
 {
+  "engines": {
+    "node": "10.x"
+  },
   "name": "node_starter",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "babel-watch --exec babel-node src/index.js",
-    "build": "babel src --out-dir dist",
-    "serve": "node dist/index.js"
+    "dev": "babel-watch --exec babel-node src/index.js",
+    "start": "node dist/index.js",
+    "build": "babel src --out-dir dist"
   },
   "keywords": [],
   "author": "",
