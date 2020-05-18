@@ -1,0 +1,30 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Titillium+Web'>
+<link rel="stylesheet" href="./styles.css">
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js'></script>
+<script src='https://www.greensock.com/js/src/utils/SplitText.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.6/typed.min.js'></script>
+
+<div class="view filter-red_blur">
+    <video id="stream"></video>
+        <div class="play-area">
+            <button id="btn-start" onclick="startStreaming()" type="button" class="button">Login</button>
+            <input type="text" id="name" placeholder="Name">
+            <button id="btn-register" type="button" class="button" onclick="startStreamingRegister()">Register</button>
+            <h2 id="snapshot"></h2>
+        </div>
+    <canvas id="capture" width="320" height="240"></canvas>
+
+</div>
+<div class="ui">
+    <div class="frame" id="analysis"></div>
+    <div id="tracking"></div>
+    <div class="frame" id="report"> </div>
+
+</div>
+
+
+
+<script src="./login.js"></script>

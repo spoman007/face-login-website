@@ -13,14 +13,14 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.7.7",
+    "babel-watch": "^7.0.0"
+  },
+  "dependencies": {
     "@babel/core": "^7.7.7",
     "@babel/node": "^7.7.7",
     "@babel/plugin-transform-runtime": "^7.7.6",
     "@babel/preset-env": "^7.7.7",
     "@babel/runtime": "^7.7.7",
-    "babel-watch": "^7.0.0"
-  },
-  "dependencies": {
     "@tensorflow/tfjs-node": "^1.5.1",
     "canvas": "^2.6.1",
     "cors": "^2.8.5",
