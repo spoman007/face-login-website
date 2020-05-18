@@ -137,7 +137,7 @@ async function captureSnapshotsRegister() {
         var xhr = new XMLHttpRequest();
         promisify(xhr);
 
-        xhr.open("POST", "https://face-loginz.herokuapp.com/register");
+        xhr.open("POST", "https://temp-appz.herokuapp.com/register");
         xhr.send(data).then(res => {
             stopStreaming();
             document.getElementById("name").value = '';
@@ -217,7 +217,7 @@ function captureSnapshot() {
                 var xhr = new XMLHttpRequest();
                 promisify(xhr);
 
-                xhr.open("POST", "https://face-loginz.herokuapp.com/");
+                xhr.open("POST", "https://temp-appz.herokuapp.com/");
                 xhr.send(data).then(res => {
                     const result = JSON.parse(res.response)
                     const expression = Object.keys(result.expressions).sort(function (a, b) { return result.expressions[b] - result.expressions[a] })[0]
