@@ -136,7 +136,7 @@ async function captureSnapshotsRegister() {
     var xhr = new XMLHttpRequest()
     promisify(xhr)
 
-    xhr.open('POST', 'https://face-login-website.herokuapp.com/register')
+    xhr.open('POST', 'https://face-login-io.herokuapp.com/register')
     xhr.send(data).then((res) => {
       stopStreaming()
       document.getElementById('name').value = ''
@@ -201,7 +201,7 @@ function captureSnapshot() {
         var xhr = new XMLHttpRequest()
         promisify(xhr)
 
-        xhr.open('POST', 'https://face-login-website.herokuapp.com/')
+        xhr.open('POST', 'https://face-login-io.herokuapp.com/')
         xhr.send(data).then((res) => {
           const result = JSON.parse(res.response)
           const expression = Object.keys(result.expressions).sort(function (
