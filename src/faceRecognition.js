@@ -36,11 +36,13 @@ export const identifyFace = async () => {
 
   const resizedDetections = faceapi.resizeResults(detections, displaySize)
   const results = faceMatcher.findBestMatch(resizedDetections.descriptor)
+console.log("Results", results);
   return { ...results, ...resizedDetections }
 }
 
 const start = async () => {
   labeledFaceDescriptors = await loadLabeledImages()
+  console.log("Descriptors", labeledFaceDescriptors );
   faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.6)
   console.log(`Server listening on port ${PORT}`)
 }
