@@ -25,8 +25,6 @@ If the person is registred in the system the server will recognise the face and 
 - <a href="https://codepen.io/coinoperatedgoi/pen/VrVbvX">Terminator scanning theme!!! 🆒</a>
 - <a href="https://github.com/WebDevSimplified">WebDevSimplified</a>
 
-### Author: Sandeep Poman ✍️
-
 ### License
 
 [MIT](https://opensource.org/licenses/MIT)
